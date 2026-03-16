@@ -209,10 +209,7 @@
             document.getElementById('season-select').style.display = 'none';
             document.getElementById('server-section').style.display = 'none';
             
-            const endpoint = currentCategory === 'movie' 
-                ? `${API}/movie/${id}` 
-                : `${API}/detail/${currentCategory}/${id}`;
-            const res = await fetch(endpoint);
+            const res = await fetch(`${API}/detail/${currentCategory}/${id}`);
             const data = await res.json();
 
             if (data.error) {
@@ -245,46 +242,27 @@
                 extraBox.innerHTML += `<div class="extra-item"><label>${label}</label><span>${val}</span></div>`;
             };
 
-
             if (currentCategory === 'anime') {
                 addExtra("Status", data.status);
                 addExtra("Studios", data.studios);
                 addExtra("Aired", data.aired);
                 addExtra("Rating", data.animeInfo?.rating);
                 addExtra("Premiered", data.premiered);
-            } else if (currentCategory === 'movie') {
-                // Movie-specific metadata
-                addExtra("Status", data.status);
-                addExtra("Release", data.release_date);
-                if (data.runtime) {
-                    const hours = Math.floor(data.runtime / 60);
-                    const mins = data.runtime % 60;
-                    addExtra("Runtime", `${hours}h ${mins}m`);
-                }
-                addExtra("Rating", data.vote_average ? `${data.vote_average.toFixed(1)}/10 (${data.vote_count} votes)` : null);
-                if (data.budget > 0) addExtra("Budget", `$${(data.budget / 1000000).toFixed(1)}M`);
-                if (data.revenue > 0) addExtra("Revenue", `$${(data.revenue / 1000000).toFixed(1)}M`);
-                if (data.imdbId) addExtra("IMDB", `<a href="https://www.imdb.com/title/${data.imdbId}" target="_blank" style="color:var(--primary); text-decoration:none;">${data.imdbId}</a>`);
             } else {
-                // TV metadata
                 addExtra("Status", data.status);
-                addExtra("Release", data.first_air_date);
+                addExtra("Release", data.first_air_date || data.release_date);
                 if (data.seasons_count > 0) addExtra("Seasons", data.seasons_count);
                 addExtra("Votes", data.vote_average ? `${data.vote_average.toFixed(1)}/10` : null);
             }
 
             // TV Season Logic
-            const sel = document.getElementById('season-select');
-            if (currentCategory === 'movie') {
-                sel.style.display = 'none';
-            } else if (currentCategory === 'tv' && data.seasons_count > 1) {
+            if (currentCategory === 'tv' && data.seasons_count > 1) {
+                const sel = document.getElementById('season-select');
                 sel.innerHTML = '';
                 for (let i=1; i<=data.seasons_count; i++) {
                     sel.innerHTML += `<option value="${i}">Season ${i}</option>`;
                 }
                 sel.style.display = 'block';
-            } else {
-                sel.style.display = 'none';
             }
 
             // Label Episode Logic for Movies
@@ -311,17 +289,6 @@
             container.innerHTML = '';
             const episodes = data.episodes || [];
             
-            // For movies, hide episode grid and auto-select
-            if (currentCategory === 'movie') {
-                container.style.display = 'none';
-                if (episodes.length > 0) {
-                    selectEpisode(episodes[0], null);
-                }
-                return;
-            }
-            
-            // Show episode grid for TV/Anime
-            container.style.display = 'grid';
             episodes.forEach((ep, index) => {
                 const btn = document.createElement('button');
                 btn.className = 'ep-btn';
@@ -337,14 +304,13 @@
         }
 
         function selectEpisode(ep, btn) {
-            if (btn) {
-                document.querySelectorAll('.ep-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-            }
+            document.querySelectorAll('.ep-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
             
             document.getElementById('server-section').style.display = 'block';
             renderProviders(ep.sources || []);
         }
+
         function renderProviders(sources) {
             const container = document.getElementById('server-list');
             container.innerHTML = '';

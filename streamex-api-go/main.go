@@ -22,9 +22,9 @@ type ProviderConfig struct {
 	Params map[string]string // Parameter tambahan
 }
 
-// Daftar provider yang didukung
+// Daftar provider yang didukung untuk TV dan Anime
 var providerRegistry = []ProviderConfig{
-	// Provider untuk TV/Movie
+	// Provider untuk TV
 	{Name: "streamx", Type: "tv", URL: "https://embed.wplay.me/embed/tv/{id}/{season}/{episode}"},
 	{Name: "mapi", Type: "tv", URL: "https://www.zxcstream.xyz/embed/tv/{id}/{season}/{episode}"},
 	{Name: "cinemaos", Type: "tv", URL: "https://cinemaos.tech/player/{id}/{season}/{episode}"},
@@ -40,7 +40,7 @@ var providerRegistry = []ProviderConfig{
 
 	// Provider untuk Anime
 	{Name: "vidcc-sub", Type: "anime", URL: "https://vidsrc.cc/v2/embed/anime/ani{id}/{episode}/sub"},
-	{Name: "vidcc-dub", Type: "anime", URL: "https://vidsrc.cc/v2/embed/anime/ani{id}/{episode}/dub"},
+	{Name: "vidcc-dub", Type: "anime", URL: "https://vidsrc.cc/v2/embed/anime/ani{id}/{id}/{episode}/dub"},
 	{Name: "pahe-sub", Type: "anime", URL: "https://vidnest.fun/animepahe/{id}/{episode}/sub"},
 	{Name: "pahe-dub", Type: "anime", URL: "https://vidnest.fun/animepahe/{id}/{episode}/dub"},
 	{Name: "videasy-sub", Type: "anime", URL: "https://player.videasy.net/anime/{id}/{episode}"},
@@ -48,6 +48,23 @@ var providerRegistry = []ProviderConfig{
 	{Name: "vidnest-sub", Type: "anime", URL: "https://vidnest.fun/anime/{id}/{episode}/sub"},
 	{Name: "vidnest-dub", Type: "anime", URL: "https://vidnest.fun/anime/{id}/{episode}/dub"},
 }
+
+// movieProviderRegistry khusus untuk film
+var movieProviderRegistry = []ProviderConfig{
+	{Name: "streamx", Type: "movie", URL: "https://embed.wplay.me/embed/movie/{id}"},
+	{Name: "mapi", Type: "movie", URL: "https://www.zxcstream.xyz/embed/movie/{id}"},
+	{Name: "cinemaos", Type: "movie", URL: "https://cinemaos.tech/player/{id}"},
+	{Name: "rive", Type: "movie", URL: "https://watch.rivestream.app/embed?type=movie&id={id}"},
+	{Name: "videasy", Type: "movie", URL: "https://player.videasy.net/movie/{id}"},
+	{Name: "vidpro", Type: "movie", URL: "https://vidlink.pro/movie/{id}?icons=vid"},
+	{Name: "vidking", Type: "movie", URL: "https://vidking.net/embed/movie/{id}?color=e50914&autoPlay=true"},
+	{Name: "embedcc", Type: "movie", URL: "https://www.2embed.cc/embed/{id}"},
+	{Name: "zxcstream", Type: "movie", URL: "https://www.zxcstream.xyz/player/movie/{id}"},
+	{Name: "french", Type: "movie", URL: "https://frembed.buzz/api/film.php?id={id}"},
+	{Name: "spanish", Type: "movie", URL: "https://play.modocine.com/play.php/embed/movie/{id}"},
+	{Name: "italian", Type: "movie", URL: "https://vixsrc.to/movie/{id}?lang=it"},
+}
+
 
 // getSources menghasilkan daftar sumber streaming untuk konten tertentu
 func getSources(mediaType, id, season, episode string) []map[string]string {
@@ -69,6 +86,23 @@ func getSources(mediaType, id, season, episode string) []map[string]string {
 		})
 	}
 
+	return sources
+}
+
+// getMovieSources menghasilkan daftar sumber streaming untuk film tertentu
+func getMovieSources(tmdbID, imdbID string) []map[string]string {
+	sources := []map[string]string{}
+
+	for _, provider := range movieProviderRegistry {
+		url := provider.URL
+		url = strings.ReplaceAll(url, "{id}", tmdbID)
+		url = strings.ReplaceAll(url, "{imdbId}", imdbID) // Ganti {imdbId} jika ada
+
+		sources = append(sources, map[string]string{
+			"provider": provider.Name,
+			"url":      url,
+		})
+	}
 	return sources
 }
 
@@ -145,6 +179,49 @@ func findAnimeMapping(title string) string {
 	}
 
 	return anilistID
+}
+
+// MovieEpisodeSource represents an episode's sources for a movie.
+// @Description Episode details for a movie, including its streaming sources.
+type MovieEpisodeSource struct {
+	EpisodeNumber int                 `json:"episode_number" example:"1"`
+	Name          string              `json:"name" example:"Full Movie"`
+	Sources       []map[string]string `json:"sources"` // Example: [{"provider": "vidking", "url": "https://vidking.net/embed/movie/1265609?color=e50914&autoPlay=true"}]
+}
+
+// MovieDetailResponse represents the response structure for movie details.
+// @Description Movie details with streaming sources.
+// @Description Note: 'episodes' for a movie will typically contain a single entry representing the full movie.
+type MovieDetailResponse struct {
+	Adult               bool                   `json:"adult" example:"false"`
+	BackdropPath        string                 `json:"backdrop_path" example:"/6yeVcxFR0j08vlv2OlL6zbewm4D.jpg"`
+	BelongsToCollection interface{}            `json:"belongs_to_collection"` // Can be null or an object
+	Budget              int                    `json:"budget" example:"0"`
+	Description         string                 `json:"description" example:"On one last grueling mission..."`
+	Episodes            []MovieEpisodeSource   `json:"episodes"`
+	Genres              []map[string]interface{} `json:"genres"` // Example: [{"id": 28, "name": "Action"}]
+	Homepage            string                 `json:"homepage" example:"https://www.netflix.com/title/81768525"`
+	ID                  string                 `json:"id" example:"1265609"`
+	ImdbID              string                 `json:"imdbId" example:"tt15940132"`
+	OriginalLanguage    string                 `json:"original_language" example:"en"`
+	OriginalTitle       string                 `json:"original_title" example:"War Machine"`
+	Overview            string                 `json:"overview" example:"On one last grueling mission..."`
+	Popularity          float64                `json:"popularity" example:"554.0951"`
+	Poster              string                 `json:"poster" example:"https://image.tmdb.org/t/p/w500/tlPgDzwIE7VYYIIAGCTUOnN4wI1.jpg"`
+	PosterPath          string                 `json:"poster_path" example:"/tlPgDzwIE7VYYIIAGCTUOnN4wI1.jpg"`
+	ReleaseDate         string                 `json:"release_date" example:"2026-02-12"`
+	Revenue             int                    `json:"revenue" example:"0"`
+	Runtime             int                    `json:"runtime" example:"110"`
+	SeasonsCount        int                    `json:"seasons_count" example:"0"`
+	SpokenLanguages     []map[string]string    `json:"spoken_languages"` // Example: [{"english_name": "English", "iso_639_1": "en", "name": "English"}]
+	Status              string                 `json:"status" example:"Released"`
+	Tagline             string                 `json:"tagline" example:"All grit. No quit."`
+	Title               string                 `json:"title" example:"War Machine"`
+	TmdbID              string                 `json:"tmdbId" example:"1265609"`
+	Type                string                 `json:"type" example:"movie"`
+	Video               bool                   `json:"video" example:"false"`
+	VoteAverage         float64                `json:"vote_average" example:"7.243"`
+	VoteCount           int                    `json:"vote_count" example:"818"`
 }
 
 // ProviderStatus melaporkan status kesehatan provider
@@ -227,9 +304,18 @@ func main() {
 
 	app.Get("/swagger/*", swagger.HandlerDefault)
 
+	// Serve static index.html from parent directory
+	app.Get("/", func(c *fiber.Ctx) error {
+		return c.SendFile("../index.html")
+	})
+	app.Get("/index.html", func(c *fiber.Ctx) error {
+		return c.SendFile("../index.html")
+	})
+
 	app.Get("/api/search", SearchHandler)
 	app.Get("/api/list/:category", ListHandler)
 	app.Get("/api/detail/:category/:id", DetailHandler)
+	app.Get("/api/movie/:id", MovieDetailHandler) // New endpoint for movie details
 	app.Get("/api/providers/health", HealthCheckHandler) // Endpoint baru
 
 	app.Listen(":5000")
@@ -364,15 +450,15 @@ func ListHandler(c *fiber.Ctx) error {
 }
 
 // DetailHandler menampilkan detail konten dan episode
-// @Summary      Detail konten
-// @Description  Menampilkan detail film, serial TV, atau anime beserta episode
+// @Summary      Dapatkan detail konten (TV atau Anime)
+// @Description  Mengambil detail lengkap untuk serial TV atau anime, termasuk metadata dan daftar sumber streaming.
 // @Tags         content
 // @Accept       json
 // @Produce      json
-// @Param        category  path      string  true  "Kategori: tv, movie, anime"
-// @Param        id        path      string  true  "ID konten"
-// @Param        season    query     string  false "Musim (hanya untuk TV)" default(1)
-// @Success      200       {object}  map[string]interface{}
+// @Param        category  path      string  true  "Kategori konten: 'tv' atau 'anime'"
+// @Param        id        path      string  true  "ID konten (TMDB ID untuk tv, HiAnime ID untuk anime)"
+// @Param        season    query     string  false "Nomor musim (Hanya berlaku untuk 'tv')" default(1)
+// @Success      200       {object}  map[string]interface{} "Untuk kategori 'tv' atau 'anime'"
 // @Failure      404       {object}  map[string]string
 // @Failure      500       {object}  map[string]string
 // @Router       /api/detail/{category}/{id} [get]
@@ -420,12 +506,7 @@ func DetailHandler(c *fiber.Ctx) error {
 		}
 		info["type"] = "anime"
 		return c.JSON(info)
-	} else {
-		// Handle TV and Movie from TMDB
-		if category != "tv" && category != "movie" {
-			category = "tv" // Default fallback
-		}
-
+	} else if category == "tv" { // Existing TV logic
 		season := c.Query("season", "1")
 		var info map[string]interface{}
 
@@ -450,7 +531,7 @@ func DetailHandler(c *fiber.Ctx) error {
 		info["tmdbId"] = tmdbID
 		info["type"] = category
 
-		// Deteksi Genre Animation
+		// Deteksi Genre Animation (tetap di TV jika user tidak ingin diubah)
 		isAnimation := false
 		if genres, ok := info["genres"].([]interface{}); ok {
 			for _, gRaw := range genres {
@@ -470,44 +551,77 @@ func DetailHandler(c *fiber.Ctx) error {
 		}
 
 		// 3. Handle Episode/Sources logic
-		if category == "tv" {
-			var eps map[string]interface{}
-			client.R().SetResult(&eps).Get(fmt.Sprintf("%s/tmdb/tv/%s/season/%s", StreamExBase, id, season))
+		var eps map[string]interface{}
+		client.R().SetResult(&eps).Get(fmt.Sprintf("%s/tmdb/tv/%s/season/%s", StreamExBase, id, season))
 
-			if epsList, ok := eps["episodes"].([]interface{}); ok {
-				for _, epRaw := range epsList {
-					ep := epRaw.(map[string]interface{})
-					episodeNo := fmt.Sprintf("%v", ep["episode_number"])
+		if epsList, ok := eps["episodes"].([]interface{}); ok {
+			for _, epRaw := range epsList {
+				ep := epRaw.(map[string]interface{})
+				episodeNo := fmt.Sprintf("%v", ep["episode_number"])
 
-					// Gabungkan sumber Movie/TV standar dan Anime (jika ada)
-					sources := getSources("tv", tmdbID, season, episodeNo)
-					if animeID != "" {
-						animeSources := getSources("anime", animeID, "1", episodeNo)
-						sources = append(sources, animeSources...)
-					}
-					ep["sources"] = sources
+				// Gabungkan sumber Movie/TV standar dan Anime (jika ada)
+				sources := getSources("tv", tmdbID, season, episodeNo)
+				if animeID != "" {
+					animeSources := getSources("anime", animeID, "1", episodeNo)
+					sources = append(sources, animeSources...)
 				}
-				info["episodes"] = epsList
+				ep["sources"] = sources
 			}
-			info["seasons_count"] = info["number_of_seasons"]
-		} else {
-			// Jika Movie, buat 1 episode dummy agar provider tetap muncul
-			sources := getSources("tv", tmdbID, "1", "1")
-			if animeID != "" {
-				animeSources := getSources("anime", animeID, "1", "1")
-				sources = append(sources, animeSources...)
-			}
-
-			info["episodes"] = []map[string]interface{}{
-				{
-					"episode_number": 1,
-					"name":           "Full Movie",
-					"sources":        sources,
-				},
-			}
-			info["seasons_count"] = 0
+			info["episodes"] = epsList
 		}
-
+		info["seasons_count"] = info["number_of_seasons"]
 		return c.JSON(info)
 	}
+	return c.Status(400).JSON(fiber.Map{"error": "Invalid category"})
+}
+
+// MovieDetailHandler menampilkan detail film
+// @Summary      Dapatkan detail film
+// @Description  Mengambil detail lengkap untuk film, termasuk metadata dan daftar sumber streaming.
+// @Tags         content
+// @Accept       json
+// @Produce      json
+// @Param        id        path      string  true  "ID film (TMDB ID)"
+// @Success      200       {object}  main.MovieDetailResponse
+// @Failure      404       {object}  map[string]string
+// @Failure      500       {object}  map[string]string
+// @Router       /api/movie/{id} [get]
+func MovieDetailHandler(c *fiber.Ctx) error {
+	id := c.Params("id")
+	var info map[string]interface{}
+
+	respInfo, err := client.R().SetResult(&info).Get(fmt.Sprintf("%s/tmdb/movie/%s", StreamExBase, id))
+	if err != nil || respInfo.IsError() {
+		return c.Status(404).JSON(fiber.Map{"error": "Content not found on TMDB"})
+	}
+
+	tmdbID := safeStringID(info["id"])
+	imdbID := safeStringID(info["imdb_id"]) // Extract imdb_id
+
+	title := info["name"]
+	if title == nil || title == "" {
+		title = info["title"]
+	}
+	info["title"] = title
+	info["description"] = info["overview"]
+	if p, ok := info["poster_path"].(string); ok && p != "" {
+		info["poster"] = "https://image.tmdb.org/t/p/w500" + p
+	}
+	info["tmdbId"] = tmdbID
+	info["imdbId"] = imdbID // Add imdbId to the response for completeness
+	info["type"] = "movie"
+
+	// Use getMovieSources for movies
+	sources := getMovieSources(tmdbID, imdbID)
+
+	info["episodes"] = []map[string]interface{}{
+		{
+			"episode_number": 1,
+			"name":           "Full Movie",
+			"sources":        sources,
+		},
+	}
+	info["seasons_count"] = 0
+
+	return c.JSON(info)
 }

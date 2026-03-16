@@ -1,4 +1,121 @@
 definitions:
+  main.MovieDetailResponse:
+    description: 'Movie details with streaming sources. Note: ''episodes'' for a movie
+      will typically contain a single entry representing the full movie.'
+    properties:
+      adult:
+        example: false
+        type: boolean
+      backdrop_path:
+        example: /6yeVcxFR0j08vlv2OlL6zbewm4D.jpg
+        type: string
+      belongs_to_collection:
+        description: Can be null or an object
+      budget:
+        example: 0
+        type: integer
+      description:
+        example: On one last grueling mission...
+        type: string
+      episodes:
+        items:
+          $ref: '#/definitions/main.MovieEpisodeSource'
+        type: array
+      genres:
+        description: 'Example: [{"id": 28, "name": "Action"}]'
+        items:
+          additionalProperties: true
+          type: object
+        type: array
+      homepage:
+        example: https://www.netflix.com/title/81768525
+        type: string
+      id:
+        example: "1265609"
+        type: string
+      imdbId:
+        example: tt15940132
+        type: string
+      original_language:
+        example: en
+        type: string
+      original_title:
+        example: War Machine
+        type: string
+      overview:
+        example: On one last grueling mission...
+        type: string
+      popularity:
+        example: 554.0951
+        type: number
+      poster:
+        example: https://image.tmdb.org/t/p/w500/tlPgDzwIE7VYYIIAGCTUOnN4wI1.jpg
+        type: string
+      poster_path:
+        example: /tlPgDzwIE7VYYIIAGCTUOnN4wI1.jpg
+        type: string
+      release_date:
+        example: "2026-02-12"
+        type: string
+      revenue:
+        example: 0
+        type: integer
+      runtime:
+        example: 110
+        type: integer
+      seasons_count:
+        example: 0
+        type: integer
+      spoken_languages:
+        description: 'Example: [{"english_name": "English", "iso_639_1": "en", "name":
+          "English"}]'
+        items:
+          additionalProperties:
+            type: string
+          type: object
+        type: array
+      status:
+        example: Released
+        type: string
+      tagline:
+        example: All grit. No quit.
+        type: string
+      title:
+        example: War Machine
+        type: string
+      tmdbId:
+        example: "1265609"
+        type: string
+      type:
+        example: movie
+        type: string
+      video:
+        example: false
+        type: boolean
+      vote_average:
+        example: 7.243
+        type: number
+      vote_count:
+        example: 818
+        type: integer
+    type: object
+  main.MovieEpisodeSource:
+    description: Episode details for a movie, including its streaming sources.
+    properties:
+      episode_number:
+        example: 1
+        type: integer
+      name:
+        example: Full Movie
+        type: string
+      sources:
+        description: 'Example: [{"provider": "vidking", "url": "https://vidking.net/embed/movie/1265609?color=e50914&autoPlay=true"}]'
+        items:
+          additionalProperties:
+            type: string
+          type: object
+        type: array
+    type: object
   main.ProviderStatus:
     properties:
       error:
@@ -19,25 +136,29 @@ definitions:
     type: object
 info:
   contact: {}
+  description: |-
+    Movie details with streaming sources.
+    Note: 'episodes' for a movie will typically contain a single entry representing the full movie.
 paths:
   /api/detail/{category}/{id}:
     get:
       consumes:
       - application/json
-      description: Menampilkan detail film, serial TV, atau anime beserta episode
+      description: Mengambil detail lengkap untuk serial TV atau anime, termasuk metadata
+        dan daftar sumber streaming.
       parameters:
-      - description: 'Kategori: tv, movie, anime'
+      - description: 'Kategori konten: ''tv'' atau ''anime'''
         in: path
         name: category
         required: true
         type: string
-      - description: ID konten
+      - description: ID konten (TMDB ID untuk tv, HiAnime ID untuk anime)
         in: path
         name: id
         required: true
         type: string
       - default: "1"
-        description: Musim (hanya untuk TV)
+        description: Nomor musim (Hanya berlaku untuk 'tv')
         in: query
         name: season
         type: string
@@ -45,7 +166,7 @@ paths:
       - application/json
       responses:
         "200":
-          description: OK
+          description: Untuk kategori 'tv' atau 'anime'
           schema:
             additionalProperties: true
             type: object
@@ -61,7 +182,7 @@ paths:
             additionalProperties:
               type: string
             type: object
-      summary: Detail konten
+      summary: Dapatkan detail konten (TV atau Anime)
       tags:
       - content
   /api/list/{category}:
@@ -104,6 +225,40 @@ paths:
               type: string
             type: object
       summary: Daftar konten populer
+      tags:
+      - content
+  /api/movie/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Mengambil detail lengkap untuk film, termasuk metadata dan daftar
+        sumber streaming.
+      parameters:
+      - description: ID film (TMDB ID)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.MovieDetailResponse'
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Dapatkan detail film
       tags:
       - content
   /api/providers/health:

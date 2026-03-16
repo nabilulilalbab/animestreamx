@@ -17,7 +17,7 @@ const docTemplate = `{
     "paths": {
         "/api/detail/{category}/{id}": {
             "get": {
-                "description": "Menampilkan detail film, serial TV, atau anime beserta episode",
+                "description": "Mengambil detail lengkap untuk serial TV atau anime, termasuk metadata dan daftar sumber streaming.",
                 "consumes": [
                     "application/json"
                 ],
@@ -27,18 +27,18 @@ const docTemplate = `{
                 "tags": [
                     "content"
                 ],
-                "summary": "Detail konten",
+                "summary": "Dapatkan detail konten (TV atau Anime)",
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "Kategori: tv, movie, anime",
+                        "description": "Kategori konten: 'tv' atau 'anime'",
                         "name": "category",
                         "in": "path",
                         "required": true
                     },
                     {
                         "type": "string",
-                        "description": "ID konten",
+                        "description": "ID konten (TMDB ID untuk tv, HiAnime ID untuk anime)",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -46,14 +46,14 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "default": "1",
-                        "description": "Musim (hanya untuk TV)",
+                        "description": "Nomor musim (Hanya berlaku untuk 'tv')",
                         "name": "season",
                         "in": "query"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK",
+                        "description": "Untuk kategori 'tv' atau 'anime'",
                         "schema": {
                             "type": "object",
                             "additionalProperties": true
@@ -124,6 +124,56 @@ const docTemplate = `{
                             "items": {
                                 "type": "object",
                                 "additionalProperties": true
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/movie/{id}": {
+            "get": {
+                "description": "Mengambil detail lengkap untuk film, termasuk metadata dan daftar sumber streaming.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "content"
+                ],
+                "summary": "Dapatkan detail film",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ID film (TMDB ID)",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/main.MovieDetailResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
                             }
                         }
                     },
@@ -228,6 +278,163 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "main.MovieDetailResponse": {
+            "description": "Movie details with streaming sources. Note: 'episodes' for a movie will typically contain a single entry representing the full movie.",
+            "type": "object",
+            "properties": {
+                "adult": {
+                    "type": "boolean",
+                    "example": false
+                },
+                "backdrop_path": {
+                    "type": "string",
+                    "example": "/6yeVcxFR0j08vlv2OlL6zbewm4D.jpg"
+                },
+                "belongs_to_collection": {
+                    "description": "Can be null or an object"
+                },
+                "budget": {
+                    "type": "integer",
+                    "example": 0
+                },
+                "description": {
+                    "type": "string",
+                    "example": "On one last grueling mission..."
+                },
+                "episodes": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/main.MovieEpisodeSource"
+                    }
+                },
+                "genres": {
+                    "description": "Example: [{\"id\": 28, \"name\": \"Action\"}]",
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": true
+                    }
+                },
+                "homepage": {
+                    "type": "string",
+                    "example": "https://www.netflix.com/title/81768525"
+                },
+                "id": {
+                    "type": "string",
+                    "example": "1265609"
+                },
+                "imdbId": {
+                    "type": "string",
+                    "example": "tt15940132"
+                },
+                "original_language": {
+                    "type": "string",
+                    "example": "en"
+                },
+                "original_title": {
+                    "type": "string",
+                    "example": "War Machine"
+                },
+                "overview": {
+                    "type": "string",
+                    "example": "On one last grueling mission..."
+                },
+                "popularity": {
+                    "type": "number",
+                    "example": 554.0951
+                },
+                "poster": {
+                    "type": "string",
+                    "example": "https://image.tmdb.org/t/p/w500/tlPgDzwIE7VYYIIAGCTUOnN4wI1.jpg"
+                },
+                "poster_path": {
+                    "type": "string",
+                    "example": "/tlPgDzwIE7VYYIIAGCTUOnN4wI1.jpg"
+                },
+                "release_date": {
+                    "type": "string",
+                    "example": "2026-02-12"
+                },
+                "revenue": {
+                    "type": "integer",
+                    "example": 0
+                },
+                "runtime": {
+                    "type": "integer",
+                    "example": 110
+                },
+                "seasons_count": {
+                    "type": "integer",
+                    "example": 0
+                },
+                "spoken_languages": {
+                    "description": "Example: [{\"english_name\": \"English\", \"iso_639_1\": \"en\", \"name\": \"English\"}]",
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "status": {
+                    "type": "string",
+                    "example": "Released"
+                },
+                "tagline": {
+                    "type": "string",
+                    "example": "All grit. No quit."
+                },
+                "title": {
+                    "type": "string",
+                    "example": "War Machine"
+                },
+                "tmdbId": {
+                    "type": "string",
+                    "example": "1265609"
+                },
+                "type": {
+                    "type": "string",
+                    "example": "movie"
+                },
+                "video": {
+                    "type": "boolean",
+                    "example": false
+                },
+                "vote_average": {
+                    "type": "number",
+                    "example": 7.243
+                },
+                "vote_count": {
+                    "type": "integer",
+                    "example": 818
+                }
+            }
+        },
+        "main.MovieEpisodeSource": {
+            "description": "Episode details for a movie, including its streaming sources.",
+            "type": "object",
+            "properties": {
+                "episode_number": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "name": {
+                    "type": "string",
+                    "example": "Full Movie"
+                },
+                "sources": {
+                    "description": "Example: [{\"provider\": \"vidking\", \"url\": \"https://vidking.net/embed/movie/1265609?color=e50914\u0026autoPlay=true\"}]",
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "main.ProviderStatus": {
             "type": "object",
             "properties": {
@@ -263,7 +470,7 @@ var SwaggerInfo = &swag.Spec{
 	BasePath:         "",
 	Schemes:          []string{},
 	Title:            "",
-	Description:      "",
+	Description:      "Movie details with streaming sources.\nNote: 'episodes' for a movie will typically contain a single entry representing the full movie.",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 	LeftDelim:        "{{",
