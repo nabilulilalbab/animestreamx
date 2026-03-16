@@ -108,6 +108,45 @@ func safeStringID(id interface{}) string {
 	}
 }
 
+// findAnimeMapping mencari ID anime (Anilist/MAL) berdasarkan judul
+func findAnimeMapping(title string) string {
+	var searchData map[string]interface{}
+	resp, err := client.R().
+		SetQueryParam("query", title).
+		SetResult(&searchData).
+		Get(StreamExBase + "/hianime/search")
+
+	if err != nil || resp.IsError() {
+		return ""
+	}
+
+	results, ok := searchData["results"].([]interface{})
+	if !ok || len(results) == 0 {
+		return ""
+	}
+
+	// Ambil slug ID dari hasil pertama
+	first := results[0].(map[string]interface{})
+	slugID := safeStringID(first["id"])
+
+	var infoData map[string]interface{}
+	respInfo, err := client.R().
+		SetResult(&infoData).
+		Get(StreamExBase + "/hianime/info/" + slugID)
+
+	if err != nil || respInfo.IsError() {
+		return ""
+	}
+
+	// Prioritaskan anilistId, fallback ke malId
+	anilistID := safeStringID(infoData["anilistId"])
+	if anilistID == "" || anilistID == "0" {
+		anilistID = safeStringID(infoData["malId"])
+	}
+
+	return anilistID
+}
+
 // ProviderStatus melaporkan status kesehatan provider
 // swagger:model
 type ProviderStatus struct {
@@ -366,38 +405,92 @@ func DetailHandler(c *fiber.Ctx) error {
 		info["type"] = "anime"
 		return c.JSON(info)
 	} else {
+		// Handle TV and Movie from TMDB
+		if category != "tv" && category != "movie" {
+			category = "tv" // Default fallback
+		}
+
 		season := c.Query("season", "1")
 		var info map[string]interface{}
-		var eps map[string]interface{}
 
-		respInfo, err := client.R().SetResult(&info).Get(fmt.Sprintf("%s/tmdb/tv/%s", StreamExBase, id))
+		// 1. Ambil info utama (Movie/TV)
+		respInfo, err := client.R().SetResult(&info).Get(fmt.Sprintf("%s/tmdb/%s/%s", StreamExBase, category, id))
 		if err != nil || respInfo.IsError() {
 			return c.Status(404).JSON(fiber.Map{"error": "Content not found on TMDB"})
 		}
 
-		client.R().SetResult(&eps).Get(fmt.Sprintf("%s/tmdb/tv/%s/season/%s", StreamExBase, id, season))
-
 		tmdbID := safeStringID(info["id"])
-		if epsList, ok := eps["episodes"].([]interface{}); ok {
-			for _, epRaw := range epsList {
-				ep := epRaw.(map[string]interface{})
-				episodeNo := fmt.Sprintf("%v", ep["episode_number"])
-				ep["sources"] = getSources("tv", tmdbID, season, episodeNo)
-			}
-			info["episodes"] = epsList
-		}
 
+		// 2. Normalisasi Field (TV menggunakan 'name', Movie menggunakan 'title')
+		title := info["name"]
+		if title == nil || title == "" {
+			title = info["title"]
+		}
+		info["title"] = title
+		info["description"] = info["overview"]
 		if p, ok := info["poster_path"].(string); ok && p != "" {
 			info["poster"] = "https://image.tmdb.org/t/p/w500" + p
 		}
 		info["tmdbId"] = tmdbID
-		info["title"] = info["name"]
-		if info["title"] == nil {
-			info["title"] = info["title"]
+		info["type"] = category
+
+		// Deteksi Genre Animation
+		isAnimation := false
+		if genres, ok := info["genres"].([]interface{}); ok {
+			for _, gRaw := range genres {
+				g := gRaw.(map[string]interface{})
+				name := strings.ToLower(safeStringID(g["name"]))
+				if name == "animation" {
+					isAnimation = true
+					break
+				}
+			}
 		}
-		info["description"] = info["overview"]
-		info["seasons_count"] = info["number_of_seasons"]
-		info["type"] = "tv"
+
+		// Cari mapping anime jika konten adalah animasi
+		animeID := ""
+		if isAnimation {
+			animeID = findAnimeMapping(title.(string))
+		}
+
+		// 3. Handle Episode/Sources logic
+		if category == "tv" {
+			var eps map[string]interface{}
+			client.R().SetResult(&eps).Get(fmt.Sprintf("%s/tmdb/tv/%s/season/%s", StreamExBase, id, season))
+
+			if epsList, ok := eps["episodes"].([]interface{}); ok {
+				for _, epRaw := range epsList {
+					ep := epRaw.(map[string]interface{})
+					episodeNo := fmt.Sprintf("%v", ep["episode_number"])
+
+					// Gabungkan sumber Movie/TV standar dan Anime (jika ada)
+					sources := getSources("tv", tmdbID, season, episodeNo)
+					if animeID != "" {
+						animeSources := getSources("anime", animeID, "1", episodeNo)
+						sources = append(sources, animeSources...)
+					}
+					ep["sources"] = sources
+				}
+				info["episodes"] = epsList
+			}
+			info["seasons_count"] = info["number_of_seasons"]
+		} else {
+			// Jika Movie, buat 1 episode dummy agar provider tetap muncul
+			sources := getSources("tv", tmdbID, "1", "1")
+			if animeID != "" {
+				animeSources := getSources("anime", animeID, "1", "1")
+				sources = append(sources, animeSources...)
+			}
+
+			info["episodes"] = []map[string]interface{}{
+				{
+					"episode_number": 1,
+					"name":           "Full Movie",
+					"sources":        sources,
+				},
+			}
+			info["seasons_count"] = 0
+		}
 
 		return c.JSON(info)
 	}

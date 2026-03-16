@@ -211,9 +211,16 @@
             
             const res = await fetch(`${API}/detail/${currentCategory}/${id}`);
             const data = await res.json();
+
+            if (data.error) {
+                document.getElementById('m-title').innerText = "Content Not Found";
+                document.getElementById('m-desc').innerText = data.error;
+                document.getElementById('episodes').innerHTML = '<div style="padding:20px; color:#666;">No content available for this ID.</div>';
+                return;
+            }
             
-            document.getElementById('m-title').innerText = data.title;
-            document.getElementById('m-poster').src = data.poster;
+            document.getElementById('m-title').innerText = data.title || "Unknown Title";
+            document.getElementById('m-poster').src = data.poster || 'https://via.placeholder.com/500x750?text=No+Poster';
             document.getElementById('m-desc').innerText = data.description || "No description available.";
 
             // Render Genres
@@ -244,8 +251,8 @@
             } else {
                 addExtra("Status", data.status);
                 addExtra("Release", data.first_air_date || data.release_date);
-                addExtra("Seasons", data.seasons_count);
-                addExtra("Votes", data.vote_average ? `${data.vote_average}/10` : null);
+                if (data.seasons_count > 0) addExtra("Seasons", data.seasons_count);
+                addExtra("Votes", data.vote_average ? `${data.vote_average.toFixed(1)}/10` : null);
             }
 
             // TV Season Logic
@@ -256,6 +263,14 @@
                     sel.innerHTML += `<option value="${i}">Season ${i}</option>`;
                 }
                 sel.style.display = 'block';
+            }
+
+            // Label Episode Logic for Movies
+            const epLabel = document.querySelector('.sidebar .sidebar-label:last-of-type');
+            if (currentCategory === 'movie') {
+                if (epLabel) epLabel.style.display = 'none';
+            } else {
+                if (epLabel) epLabel.style.display = 'block';
             }
 
             renderEpisodes(data);
