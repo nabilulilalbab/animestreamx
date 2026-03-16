@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StreamX Direct Proxy v2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #818cf8; --bg: #0a0a0a; --card-bg: #171717; --text-dim: #aaa; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: #e5e5e5; margin: 0; padding: 0; overflow-x: hidden; }
+        
+        header { 
+            background: rgba(10, 10, 10, 0.8); backdrop-filter: blur(10px);
+            padding: 15px 40px; display: flex; justify-content: space-between; align-items: center; 
+            border-bottom: 1px solid #333; position: sticky; top: 0; z-index: 100; 
+        }
+        .nav-links { display: flex; gap: 20px; }
+        .nav-links span { cursor: pointer; font-weight: 600; color: #888; transition: 0.2s; font-size: 0.9rem; }
+        .nav-links span.active { color: var(--primary); }
+        
+        #search-input { 
+            width: 100%; padding: 10px 20px; border-radius: 30px; border: 1px solid #333; 
+            background: #1a1a1a; color: white; outline:none; transition: 0.3s; 
+        }
+        #search-input:focus { border-color: var(--primary); box-shadow: 0 0 15px rgba(129, 140, 248, 0.2); }
+
+        .container { padding: 30px 40px; max-width: 1600px; margin: 0 auto; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 30px; }
+        
+        .card { background: var(--card-bg); border-radius: 12px; overflow: hidden; cursor: pointer; transition: 0.3s; position: relative; }
+        .card:hover { transform: translateY(-8px); }
+        .card img { width: 100%; aspect-ratio: 2/3; object-fit: cover; }
+        .card-info { padding: 12px; }
+        .card-title { font-weight: 600; margin: 0; font-size: 0.9rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        
+        /* Badges on Cards */
+        .card-badges { position: absolute; top: 10px; right: 10px; display: flex; flex-direction: column; gap: 5px; pointer-events: none; }
+        .badge { background: rgba(0,0,0,0.8); padding: 4px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; color: white; border: 1px solid rgba(255,255,255,0.1); }
+        .badge.sub { border-left: 3px solid #34d399; }
+        .badge.dub { border-left: 3px solid var(--primary); }
+
+        /* Player View */
+        #player-view { display: none; }
+        .player-wrapper { display: grid; grid-template-columns: 1fr 380px; gap: 40px; }
+        .video-container { width: 100%; aspect-ratio: 16/9; background: #000; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        iframe { width: 100%; height: 100%; border: none; }
+        
+        .sidebar { background: #111; border-radius: 20px; padding: 25px; height: calc(100vh - 180px); overflow-y: auto; border: 1px solid #222; }
+        
+        .server-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 25px; }
+        .server-btn { 
+            background: #1a1a1a; border: 1px solid #333; color: #888; padding: 8px 15px; 
+            border-radius: 8px; cursor: pointer; font-size: 0.75rem; font-weight: 700; 
+            transition: 0.2s; text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .server-btn:hover { border-color: var(--primary); color: white; }
+        .server-btn.active { background: var(--primary); border-color: var(--primary); color: white; box-shadow: 0 4px 12px rgba(129, 140, 248, 0.3); }
+
+        .sidebar-label { font-size: 0.7rem; font-weight: 800; color: #555; text-transform: uppercase; margin-bottom: 12px; letter-spacing: 1px; display: block; }
+
+        .ep-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(55px, 1fr)); gap: 12px; }
+        .ep-btn { background: #222; border: 1px solid #333; color: white; padding: 12px 5px; border-radius: 10px; cursor: pointer; font-size: 0.8rem; transition: 0.2s; font-weight: 600; }
+        .ep-btn:hover { background: #333; transform: scale(1.05); }
+        .ep-btn.active { background: var(--primary); color: white; border-color: var(--primary); box-shadow: 0 0 15px rgba(129, 140, 248, 0.4); }
+
+        /* Metadata Display */
+        .meta { display: flex; gap: 30px; margin-top: 30px; align-items: flex-start; }
+        .meta-poster { width: 220px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .meta-content { flex: 1; }
+        .m-title { font-size: 2.2rem; font-weight: 800; margin: 0 0 15px 0; }
+        .genres { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+        .genre-tag { background: #222; padding: 6px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: 500; color: var(--text-dim); border: 1px solid #333; }
+        .description { color: var(--text-dim); line-height: 1.7; font-size: 1rem; margin-bottom: 25px; max-width: 900px; }
+        .extra-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; background: #111; padding: 20px; border-radius: 15px; border: 1px solid #222; }
+        .extra-item label { display: block; font-size: 0.75rem; color: #666; font-weight: 700; text-transform: uppercase; margin-bottom: 5px; }
+        .extra-item span { font-size: 0.9rem; color: #ddd; font-weight: 500; }
+
+        .loading { text-align: center; padding: 100px; color: var(--primary); font-weight: 600; letter-spacing: 2px; }
+        
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #444; }
+    </style>
+</head>
+<body>
+    <header>
+        <div style="font-weight: 800; font-size: 1.6rem; letter-spacing: -1px; cursor: pointer;" onclick="location.reload()">STREAMEX<span style="color:var(--primary)">GO</span></div>
+        <div style="flex: 1; max-width: 500px; margin: 0 40px;">
+            <input type="text" id="search-input" placeholder="Search for anything...">
+        </div>
+        <div class="nav-links">
+            <span id="nav-anime" class="active" onclick="changeCategory('anime')">ANIME</span>
+            <span id="nav-tv" onclick="changeCategory('tv')">TV SHOWS</span>
+            <span id="nav-movie" onclick="changeCategory('movie')">MOVIES</span>
+        </div>
+    </header>
+
+    <div class="container" id="list-view">
+        <div id="grid" class="grid"></div>
+    </div>
+
+    <div class="container" id="player-view">
+        <div class="player-wrapper">
+            <div class="main-content">
+                <div class="video-container">
+                    <iframe id="player" allowfullscreen></iframe>
+                </div>
+                <div class="meta">
+                    <img id="m-poster" class="meta-poster" src="">
+                    <div class="meta-content">
+                        <button onclick="showHome()" style="margin-bottom:20px; background:#222; border:1px solid #333; color:white; padding:10px 20px; border-radius:30px; cursor:pointer; font-weight:600;">← Back to Home</button>
+                        <h1 id="m-title" class="m-title"></h1>
+                        <div id="m-genres" class="genres"></div>
+                        <p id="m-desc" class="description"></p>
+                        <div id="m-extra" class="extra-grid"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="sidebar">
+                <select id="season-select" class="season-select" onchange="loadSeason(this.value)" 
+                    style="width: 100%; padding: 12px; background: #222; color: white; border: 1px solid #333; border-radius: 10px; margin-bottom: 20px; cursor: pointer; display:none;">
+                </select>
+                
+                <div id="server-section" style="display:none; margin-bottom:30px;">
+                    <span class="sidebar-label">Select Server</span>
+                    <div id="server-list" class="server-grid"></div>
+                </div>
+
+                <span class="sidebar-label">Episodes</span>
+                <div id="episodes" class="ep-grid"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API = `http://${window.location.hostname}:5000/api`;
+        let currentCategory = 'anime';
+        let currentId = null;
+
+        // Search listener
+        document.getElementById('search-input').addEventListener('keypress', async (e) => {
+            if (e.key === 'Enter') {
+                const query = e.target.value;
+                if (!query) return;
+                showHomeView();
+                document.getElementById('grid').innerHTML = `<div class="loading">Searching for "${query}"...</div>`;
+                const res = await fetch(`${API}/search?query=${encodeURIComponent(query)}`);
+                const data = await res.json();
+                renderCards(data);
+                document.querySelectorAll('.nav-links span').forEach(s => s.classList.remove('active'));
+            }
+        });
+
+        async function changeCategory(cat) {
+            currentCategory = cat;
+            document.querySelectorAll('.nav-links span').forEach(s => s.classList.remove('active'));
+            document.getElementById(`nav-${cat}`).classList.add('active');
+            document.getElementById('search-input').value = '';
+            showHome();
+        }
+
+        function showHomeView() {
+            document.getElementById('list-view').style.display = 'block';
+            document.getElementById('player-view').style.display = 'none';
+            document.getElementById('player').src = '';
+        }
+
+        async function showHome() {
+            showHomeView();
+            document.getElementById('grid').innerHTML = '<div class="loading">LOADING CONTENT...</div>';
+            const res = await fetch(`${API}/list/${currentCategory}`);
+            const data = await res.json();
+            renderCards(data);
+        }
+
+        function renderCards(data) {
+            const grid = document.getElementById('grid');
+            grid.innerHTML = '';
+            if (data.length === 0) { grid.innerHTML = '<div class="loading">No results found.</div>'; return; }
+
+            data.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.onclick = () => {
+                    currentCategory = item.type?.toLowerCase() === 'movie' ? 'movie' : (item.type?.toLowerCase() === 'tv' ? 'tv' : currentCategory);
+                    showDetail(item.id);
+                };
+                
+                let badges = '';
+                if(item.sub) badges += `<div class="badge sub">SUB ${item.sub}</div>`;
+                if(item.dub) badges += `<div class="badge dub">DUB ${item.dub}</div>`;
+                if(item.duration) badges += `<div class="badge">🕒 ${item.duration}</div>`;
+
+                card.innerHTML = `
+                    <div class="card-badges">${badges}</div>
+                    <img src="${item.poster || 'https://via.placeholder.com/342x512?text=No+Poster'}" loading="lazy">
+                    <div class="card-info"><p class="card-title">${item.title}</p></div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        async function showDetail(id) {
+            currentId = id;
+            document.getElementById('list-view').style.display = 'none';
+            document.getElementById('player-view').style.display = 'block';
+            document.getElementById('episodes').innerHTML = '<div class="loading" style="padding:20px; font-size:0.8rem;">LOADING...</div>';
+            document.getElementById('season-select').style.display = 'none';
+            document.getElementById('server-section').style.display = 'none';
+            
+            const res = await fetch(`${API}/detail/${currentCategory}/${id}`);
+            const data = await res.json();
+            
+            document.getElementById('m-title').innerText = data.title;
+            document.getElementById('m-poster').src = data.poster;
+            document.getElementById('m-desc').innerText = data.description || "No description available.";
+
+            // Render Genres
+            const genreBox = document.getElementById('m-genres');
+            genreBox.innerHTML = '';
+            const genres = data.genres || [];
+            genres.forEach(g => {
+                const tag = document.createElement('span');
+                tag.className = 'genre-tag';
+                tag.innerText = typeof g === 'string' ? g : (g.name || "");
+                genreBox.appendChild(tag);
+            });
+
+            // Render Extra Info
+            const extraBox = document.getElementById('m-extra');
+            extraBox.innerHTML = '';
+            const addExtra = (label, val) => {
+                if(!val) return;
+                extraBox.innerHTML += `<div class="extra-item"><label>${label}</label><span>${val}</span></div>`;
+            };
+
+            if (currentCategory === 'anime') {
+                addExtra("Status", data.status);
+                addExtra("Studios", data.studios);
+                addExtra("Aired", data.aired);
+                addExtra("Rating", data.animeInfo?.rating);
+                addExtra("Premiered", data.premiered);
+            } else {
+                addExtra("Status", data.status);
+                addExtra("Release", data.first_air_date || data.release_date);
+                addExtra("Seasons", data.seasons_count);
+                addExtra("Votes", data.vote_average ? `${data.vote_average}/10` : null);
+            }
+
+            // TV Season Logic
+            if (currentCategory === 'tv' && data.seasons_count > 1) {
+                const sel = document.getElementById('season-select');
+                sel.innerHTML = '';
+                for (let i=1; i<=data.seasons_count; i++) {
+                    sel.innerHTML += `<option value="${i}">Season ${i}</option>`;
+                }
+                sel.style.display = 'block';
+            }
+
+            renderEpisodes(data);
+        }
+
+        async function loadSeason(season) {
+            const res = await fetch(`${API}/detail/tv/${currentId}?season=${season}`);
+            const data = await res.json();
+            renderEpisodes(data, season);
+        }
+
+        let lastProviderName = null;
+
+        function renderEpisodes(data, seasonNum = 1) {
+            const container = document.getElementById('episodes');
+            container.innerHTML = '';
+            const episodes = data.episodes || [];
+            
+            episodes.forEach((ep, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'ep-btn';
+                const epNo = ep.episode_no || ep.episode_number || (index + 1);
+                btn.innerText = epNo;
+                btn.onclick = () => selectEpisode(ep, btn);
+                container.appendChild(btn);
+            });
+
+            if (episodes.length > 0) {
+                selectEpisode(episodes[0], container.firstChild);
+            }
+        }
+
+        function selectEpisode(ep, btn) {
+            document.querySelectorAll('.ep-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            document.getElementById('server-section').style.display = 'block';
+            renderProviders(ep.sources || []);
+        }
+
+        function renderProviders(sources) {
+            const container = document.getElementById('server-list');
+            container.innerHTML = '';
+            
+            if (sources.length === 0) {
+                container.innerHTML = '<span style="color:#666; font-size:0.7rem;">NO SERVERS AVAILABLE</span>';
+                return;
+            }
+
+            let autoSelectBtn = null;
+            sources.forEach(src => {
+                const btn = document.createElement('button');
+                btn.className = 'server-btn';
+                btn.innerText = src.provider;
+                btn.onclick = () => {
+                    document.getElementById('player').src = src.url;
+                    document.querySelectorAll('.server-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    lastProviderName = src.provider;
+                };
+                container.appendChild(btn);
+                
+                if (src.provider === lastProviderName) autoSelectBtn = btn;
+            });
+
+            if (!autoSelectBtn) autoSelectBtn = container.firstChild;
+            if (autoSelectBtn) autoSelectBtn.click();
+        }
+
+        showHome();
+    </script>
+</body>
+</html>

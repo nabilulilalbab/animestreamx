@@ -1,0 +1,1129 @@
+{
+  "details": {
+    "id": "naruto-677",
+    "title": "Naruto",
+    "thumbnail": "https://cdn.noitatnemucod.net/thumbnail/185x278/100/5db400c33f7494bc8ae96f9e634958d0.jpg",
+    "episodes": [
+      {
+        "id": "12352",
+        "episode": 1,
+        "title": "E1: Enter: Naruto Uzumaki!"
+      },
+      {
+        "id": "12353",
+        "episode": 2,
+        "title": "E2: My Name is Konohamaru!"
+      },
+      {
+        "id": "12354",
+        "episode": 3,
+        "title": "E3: Sasuke and Sakura: Friends or Foes?"
+      },
+      {
+        "id": "12355",
+        "episode": 4,
+        "title": "E4: Pass or Fail: Survival Test"
+      },
+      {
+        "id": "12356",
+        "episode": 5,
+        "title": "E5: You Failed! Kakashi's Final Decision"
+      },
+      {
+        "id": "12357",
+        "episode": 6,
+        "title": "E6: A Dangerous Mission! Journey to the Land of Waves!"
+      },
+      {
+        "id": "12358",
+        "episode": 7,
+        "title": "E7: The Assassin of the Mist!"
+      },
+      {
+        "id": "12359",
+        "episode": 8,
+        "title": "E8: The Oath of Pain"
+      },
+      {
+        "id": "12360",
+        "episode": 9,
+        "title": "E9: Kakashi: Sharingan Warrior"
+      },
+      {
+        "id": "12361",
+        "episode": 10,
+        "title": "E10: The Forest of Chakra"
+      },
+      {
+        "id": "12362",
+        "episode": 11,
+        "title": "E11: The Land Where a Hero Once Lived"
+      },
+      {
+        "id": "12363",
+        "episode": 12,
+        "title": "E12: Battle on the Bridge! Zabuza Returns!!"
+      },
+      {
+        "id": "12364",
+        "episode": 13,
+        "title": "E13: Haku's Secret Jutsu: Crystal Ice Mirrors"
+      },
+      {
+        "id": "12365",
+        "episode": 14,
+        "title": "E14: The Number One Hyperactive, Knucklehead Ninja Joins the Fight!!"
+      },
+      {
+        "id": "12366",
+        "episode": 15,
+        "title": "E15: Zero Visibility: The Sharingan Shatters"
+      },
+      {
+        "id": "12367",
+        "episode": 16,
+        "title": "E16: The Broken Seal"
+      },
+      {
+        "id": "12368",
+        "episode": 17,
+        "title": "E17: White Past: Hidden Ambition"
+      },
+      {
+        "id": "12369",
+        "episode": 18,
+        "title": "E18: The Weapons Known as Shinobi"
+      },
+      {
+        "id": "12370",
+        "episode": 19,
+        "title": "E19: The Demon in the Snow"
+      },
+      {
+        "id": "12371",
+        "episode": 20,
+        "title": "E20: A New Chapter Begins: The Chunin Exam!"
+      },
+      {
+        "id": "12372",
+        "episode": 21,
+        "title": "E21: Identify Yourself: Powerful New Rivals"
+      },
+      {
+        "id": "12373",
+        "episode": 22,
+        "title": "E22: Chunin Challenge: Rock Lee vs. Sasuke!"
+      },
+      {
+        "id": "12374",
+        "episode": 23,
+        "title": "E23: Genin Takedown! All Nine Rookies Face Off!"
+      },
+      {
+        "id": "12375",
+        "episode": 24,
+        "title": "E24: Start Your Engines: The Chunin Exam Begins!"
+      },
+      {
+        "id": "12376",
+        "episode": 25,
+        "title": "E25: The Tenth Question: All or Nothing!"
+      },
+      {
+        "id": "12377",
+        "episode": 26,
+        "title": "E26: Special Report: Live from the Forest of Death!"
+      },
+      {
+        "id": "12378",
+        "episode": 27,
+        "title": "E27: The Chunin Exam Stage 2: The Forest of Death"
+      },
+      {
+        "id": "12379",
+        "episode": 28,
+        "title": "E28: Eat or be Eaten: Panic in the Forest"
+      },
+      {
+        "id": "12380",
+        "episode": 29,
+        "title": "E29: Naruto's Counterattack: Never Give In!"
+      },
+      {
+        "id": "12381",
+        "episode": 30,
+        "title": "E30: The Sharingan Revived: Dragon-Flame Jutsu!"
+      },
+      {
+        "id": "12382",
+        "episode": 31,
+        "title": "E31: Bushy Brow's Pledge: Undying Love and Protection!"
+      },
+      {
+        "id": "12383",
+        "episode": 32,
+        "title": "E32: Sakura Blossoms!"
+      },
+      {
+        "id": "12384",
+        "episode": 33,
+        "title": "E33: Battle Formation: Ino-Shika-Cho!"
+      },
+      {
+        "id": "12385",
+        "episode": 34,
+        "title": "E34: Akamaru Trembles: Gaara's Cruel Strength!"
+      },
+      {
+        "id": "12386",
+        "episode": 35,
+        "title": "E35: The Scroll's Secret: No Peeking Allowed"
+      },
+      {
+        "id": "12387",
+        "episode": 36,
+        "title": "E36: Clone vs. Clone: Mine are Better than Yours!"
+      },
+      {
+        "id": "12388",
+        "episode": 37,
+        "title": "E37: Surviving the Cut! The Rookie Nine Together Again!"
+      },
+      {
+        "id": "12389",
+        "episode": 38,
+        "title": "E38: Narrowing the Field: Sudden Death Elimination!"
+      },
+      {
+        "id": "12390",
+        "episode": 39,
+        "title": "E39: Bushy Brow's Jealousy: Lions Barrage Unleashed!"
+      },
+      {
+        "id": "12391",
+        "episode": 40,
+        "title": "E40: Kakashi and Orochimaru: Face-to-Face!"
+      },
+      {
+        "id": "12392",
+        "episode": 41,
+        "title": "E41: Kunoichi Rumble: The Rivals Get Serious!"
+      },
+      {
+        "id": "12393",
+        "episode": 42,
+        "title": "E42: The Ultimate Battle: Cha!"
+      },
+      {
+        "id": "12394",
+        "episode": 43,
+        "title": "E43: Killer Kunoichi and a Shaky Shikamaru"
+      },
+      {
+        "id": "12395",
+        "episode": 44,
+        "title": "E44: Akamaru Unleashed! Who's Top Dog Now?"
+      },
+      {
+        "id": "12396",
+        "episode": 45,
+        "title": "E45: Surprise Attack! Naruto's Secret Weapon!"
+      },
+      {
+        "id": "12397",
+        "episode": 46,
+        "title": "E46: Byakugan Battle: Hinata Grows Bold!"
+      },
+      {
+        "id": "12398",
+        "episode": 47,
+        "title": "E47: A Failure Stands Tall!"
+      },
+      {
+        "id": "12399",
+        "episode": 48,
+        "title": "E48: Gaara vs. Rock Lee: The Power of Youth Explodes!"
+      },
+      {
+        "id": "12400",
+        "episode": 49,
+        "title": "E49: Lee's Hidden Strength: Forbidden Secret Jutsu!"
+      },
+      {
+        "id": "12401",
+        "episode": 50,
+        "title": "E50: The Fifth Gate: A Splendid Ninja is Born"
+      },
+      {
+        "id": "12402",
+        "episode": 51,
+        "title": "E51: A Shadow in Darkness: Danger Approaches Sasuke"
+      },
+      {
+        "id": "12403",
+        "episode": 52,
+        "title": "E52: Ebisu Returns: Naruto's Toughest Training Yet!"
+      },
+      {
+        "id": "12404",
+        "episode": 53,
+        "title": "E53: Long Time No See: Jiraiya Returns!"
+      },
+      {
+        "id": "12405",
+        "episode": 54,
+        "title": "E54: The Summoning Jutsu: Wisdom of the Toad Sage!"
+      },
+      {
+        "id": "12406",
+        "episode": 55,
+        "title": "E55: A Feeling of Yearning, A Flower Full of Hope"
+      },
+      {
+        "id": "12407",
+        "episode": 56,
+        "title": "E56: Live or Die: Risk it All to Win it All!"
+      },
+      {
+        "id": "12408",
+        "episode": 57,
+        "title": "E57: He Flies! He Jumps! He Lurks! Chief Toad Appears!"
+      },
+      {
+        "id": "12409",
+        "episode": 58,
+        "title": "E58: Hospital Besieged: The Evil Hand Revealed!"
+      },
+      {
+        "id": "12410",
+        "episode": 59,
+        "title": "E59: The Final Rounds: Rush to the Battle Arena!"
+      },
+      {
+        "id": "12411",
+        "episode": 60,
+        "title": "E60: Byakugan vs. Shadow Clone"
+      },
+      {
+        "id": "12412",
+        "episode": 61,
+        "title": "E61: Ultimate Defense: Zero Blind Spot!"
+      },
+      {
+        "id": "12413",
+        "episode": 62,
+        "title": "E62: A Failure's True Power"
+      },
+      {
+        "id": "12414",
+        "episode": 63,
+        "title": "E63: Hit it or Quit it: The Final Rounds Get Complicated!"
+      },
+      {
+        "id": "12415",
+        "episode": 64,
+        "title": "E64: Zero Motivation: The Guy with Cloud Envy!"
+      },
+      {
+        "id": "12416",
+        "episode": 65,
+        "title": "E65: Dancing Leaf, Squirming Sand"
+      },
+      {
+        "id": "12417",
+        "episode": 66,
+        "title": "E66: Bushy Brow's Jutsu: Sasuke Style!"
+      },
+      {
+        "id": "12418",
+        "episode": 67,
+        "title": "E67: Late for the Show, But Ready to Go! The Ultimate Secret Technique is Born!"
+      },
+      {
+        "id": "12419",
+        "episode": 68,
+        "title": "E68: Zero Hour! The Destruction of the Hidden Leaf Village Begins!"
+      },
+      {
+        "id": "12420",
+        "episode": 69,
+        "title": "E69: Village in Distress: A New A-Ranked Mission!"
+      },
+      {
+        "id": "12421",
+        "episode": 70,
+        "title": "E70: A Shirker's Call to Action: A Layabout No More!"
+      },
+      {
+        "id": "12422",
+        "episode": 71,
+        "title": "E71: An Unrivaled Match: Hokage Battle Royale!"
+      },
+      {
+        "id": "12423",
+        "episode": 72,
+        "title": "E72: A Mistake from the Past: A Face Revealed!"
+      },
+      {
+        "id": "12424",
+        "episode": 73,
+        "title": "E73: Forbidden Secret Technique: Reaper Death Seal!"
+      },
+      {
+        "id": "12425",
+        "episode": 74,
+        "title": "E74: Astonishing Truth! Gaara's Identity Emerges!"
+      },
+      {
+        "id": "12426",
+        "episode": 75,
+        "title": "E75: Sasuke's Decision: Pushed to the Edge!"
+      },
+      {
+        "id": "12427",
+        "episode": 76,
+        "title": "E76: Assassin of the Moonlit Night"
+      },
+      {
+        "id": "12428",
+        "episode": 77,
+        "title": "E77: Light vs. Dark: The Two Faces of Gaara"
+      },
+      {
+        "id": "12429",
+        "episode": 78,
+        "title": "E78: Naruto's Ninja Handbook"
+      },
+      {
+        "id": "12430",
+        "episode": 79,
+        "title": "E79: Beyond the Limit of Darkness and Light"
+      },
+      {
+        "id": "12431",
+        "episode": 80,
+        "title": "E80: The Third Hokage, Forever..."
+      },
+      {
+        "id": "12432",
+        "episode": 81,
+        "title": "E81: Return of the Morning Mist"
+      },
+      {
+        "id": "12433",
+        "episode": 82,
+        "title": "E82: Eye to Eye: Sharingan vs. Sharingan!"
+      },
+      {
+        "id": "12434",
+        "episode": 83,
+        "title": "E83: Jiraiya: Naruto's Potential Disaster!"
+      },
+      {
+        "id": "12435",
+        "episode": 84,
+        "title": "E84: Roar, Chidori! Brother vs. Brother!"
+      },
+      {
+        "id": "12436",
+        "episode": 85,
+        "title": "E85: Hate Among the Uchihas: The Last of the Clan!"
+      },
+      {
+        "id": "12437",
+        "episode": 86,
+        "title": "E86: A New Training Begins: I Will Be Strong!"
+      },
+      {
+        "id": "12438",
+        "episode": 87,
+        "title": "E87: Keep on Training: Pop Goes the Water Balloon!"
+      },
+      {
+        "id": "12439",
+        "episode": 88,
+        "title": "E88: Focal Point: The Mark of the Leaf"
+      },
+      {
+        "id": "12440",
+        "episode": 89,
+        "title": "E89: An Impossible Choice: The Pain Within Tsunade's Heart"
+      },
+      {
+        "id": "12441",
+        "episode": 90,
+        "title": "E90: Unforgivable! A Total Lack of Respect!"
+      },
+      {
+        "id": "12442",
+        "episode": 91,
+        "title": "E91: Inheritence! The Necklace of Death!"
+      },
+      {
+        "id": "12443",
+        "episode": 92,
+        "title": "E92: A Dubious Offer! Tsunade's Choice!"
+      },
+      {
+        "id": "12444",
+        "episode": 93,
+        "title": "E93: Breakdown! The Deal is Off!"
+      },
+      {
+        "id": "12445",
+        "episode": 94,
+        "title": "E94: Attack! Fury of the Rasengan!"
+      },
+      {
+        "id": "12446",
+        "episode": 95,
+        "title": "E95: The Fifth Hokage! A Life on the Line!"
+      },
+      {
+        "id": "12447",
+        "episode": 96,
+        "title": "E96: Deadlock! Sannin Showdown!"
+      },
+      {
+        "id": "12448",
+        "episode": 97,
+        "title": "E97: Kidnapped! Naruto's Hot Spring Adventure!"
+      },
+      {
+        "id": "12449",
+        "episode": 98,
+        "title": "E98: Tsunade's Warning: Ninja No More!"
+      },
+      {
+        "id": "12450",
+        "episode": 99,
+        "title": "E99: The Will of Fire Still Burns!"
+      },
+      {
+        "id": "12451",
+        "episode": 100,
+        "title": "E100: Sensei and Student: The Bond of the Shinobi"
+      },
+      {
+        "id": "12452",
+        "episode": 101,
+        "title": "E101: Gotta See! Gotta Know! Kakashi-Sensei's True Face!"
+      },
+      {
+        "id": "12453",
+        "episode": 102,
+        "title": "E102: Mission: Help an Old Friend in the Land of Tea"
+      },
+      {
+        "id": "12454",
+        "episode": 103,
+        "title": "E103: The Race is on! Trouble on the High Seas!"
+      },
+      {
+        "id": "12455",
+        "episode": 104,
+        "title": "E104: Run Idate Run! Nagi Island Awaits!"
+      },
+      {
+        "id": "12456",
+        "episode": 105,
+        "title": "E105: A Fierce Battle of Rolling Thunder!"
+      },
+      {
+        "id": "12457",
+        "episode": 106,
+        "title": "E106: The Last Leg: A Final Act of Desperation"
+      },
+      {
+        "id": "12458",
+        "episode": 107,
+        "title": "E107: The Battle Begins: Naruto vs. Sasuke"
+      },
+      {
+        "id": "12459",
+        "episode": 108,
+        "title": "E108: Bitter Rivals and Broken Bonds"
+      },
+      {
+        "id": "12460",
+        "episode": 109,
+        "title": "E109: An Invitation from the Sound"
+      },
+      {
+        "id": "12461",
+        "episode": 110,
+        "title": "E110: Formation! The Sasuke Retrieval Squad"
+      },
+      {
+        "id": "12462",
+        "episode": 111,
+        "title": "E111: Sound vs. Leaf"
+      },
+      {
+        "id": "12463",
+        "episode": 112,
+        "title": "E112: Squad Mutiny: Everything Falls Apart!"
+      },
+      {
+        "id": "12464",
+        "episode": 113,
+        "title": "E113: Full Throttle Power! Choji, Ablaze!"
+      },
+      {
+        "id": "12465",
+        "episode": 114,
+        "title": "E114: Good-bye Old Friend...! I'll Always Believe in You!"
+      },
+      {
+        "id": "12466",
+        "episode": 115,
+        "title": "E115: Your Opponent Is Me!"
+      },
+      {
+        "id": "12467",
+        "episode": 116,
+        "title": "E116: 360 Degrees of Vision: The Byakugan's Blind Spot"
+      },
+      {
+        "id": "12468",
+        "episode": 117,
+        "title": "E117: Losing is Not an Option!"
+      },
+      {
+        "id": "12469",
+        "episode": 118,
+        "title": "E118: The Vessel Arrives Too Late"
+      },
+      {
+        "id": "12470",
+        "episode": 119,
+        "title": "E119: Miscalculation: A New Enemy Appears!"
+      },
+      {
+        "id": "12471",
+        "episode": 120,
+        "title": "E120: Roar and Howl! The Ultimate Tag Team"
+      },
+      {
+        "id": "12472",
+        "episode": 121,
+        "title": "E121: To Each His Own Battle"
+      },
+      {
+        "id": "12473",
+        "episode": 122,
+        "title": "E122: Fakeout: Shikamaru's Comeback!"
+      },
+      {
+        "id": "12474",
+        "episode": 123,
+        "title": "E123: The Leaf's Handsome Devil!"
+      },
+      {
+        "id": "12475",
+        "episode": 124,
+        "title": "E124: The Beast Within"
+      },
+      {
+        "id": "12476",
+        "episode": 125,
+        "title": "E125: The Sand Shinobi: Allies of the Leaf"
+      },
+      {
+        "id": "12477",
+        "episode": 126,
+        "title": "E126: Showdown: Gaara vs. Kimimaro!"
+      },
+      {
+        "id": "12478",
+        "episode": 127,
+        "title": "E127: Vengeful Strike! The Bracken Dance"
+      },
+      {
+        "id": "12479",
+        "episode": 128,
+        "title": "E128: A Cry on Deaf Ears"
+      },
+      {
+        "id": "12480",
+        "episode": 129,
+        "title": "E129: Brothers: Distance Among the Uchiha"
+      },
+      {
+        "id": "12481",
+        "episode": 130,
+        "title": "E130: Father and Son, the Broken Crest"
+      },
+      {
+        "id": "12482",
+        "episode": 131,
+        "title": "E131: The Secrets of the Mangekyo Sharingan!"
+      },
+      {
+        "id": "12483",
+        "episode": 132,
+        "title": "E132: For a Friend"
+      },
+      {
+        "id": "12484",
+        "episode": 133,
+        "title": "E133: A Plea From a Friend"
+      },
+      {
+        "id": "12485",
+        "episode": 134,
+        "title": "E134: The End of Tears"
+      },
+      {
+        "id": "12486",
+        "episode": 135,
+        "title": "E135: The Promise That Could Not Be Kept"
+      },
+      {
+        "id": "12487",
+        "episode": 136,
+        "title": "E136: Deep Cover!? A Super S-Ranked Mission!"
+      },
+      {
+        "id": "12488",
+        "episode": 137,
+        "title": "E137: A Town of Outlaws, the Shadow of the Fuma Clan"
+      },
+      {
+        "id": "12489",
+        "episode": 138,
+        "title": "E138: Pure Betrayal, and a Fleeting Plea!"
+      },
+      {
+        "id": "12490",
+        "episode": 139,
+        "title": "E139: Pure Terror! The House of Orochimaru"
+      },
+      {
+        "id": "12491",
+        "episode": 140,
+        "title": "E140: Two Heartbeats: Kabuto's Trap"
+      },
+      {
+        "id": "12492",
+        "episode": 141,
+        "title": "E141: Sakura's Determination"
+      },
+      {
+        "id": "12493",
+        "episode": 142,
+        "title": "E142: The Three Villains from the Maximum Security Prison"
+      },
+      {
+        "id": "12494",
+        "episode": 143,
+        "title": "E143: Tonton! I'm Counting on You!"
+      },
+      {
+        "id": "12495",
+        "episode": 144,
+        "title": "E144: A New Squad! Two People and a Dog?!"
+      },
+      {
+        "id": "12496",
+        "episode": 145,
+        "title": "E145: A New Formation: Ino-Shika-Cho!"
+      },
+      {
+        "id": "12497",
+        "episode": 146,
+        "title": "E146: Orochimaru's Shadow"
+      },
+      {
+        "id": "12498",
+        "episode": 147,
+        "title": "E147: A Clash of Fate: You Can't Bring Me Down"
+      },
+      {
+        "id": "12499",
+        "episode": 148,
+        "title": "E148: Search for the Rare Bikochu Beetle"
+      },
+      {
+        "id": "12500",
+        "episode": 149,
+        "title": "E149: What's the Difference? Don't All Insects Look Alike?"
+      },
+      {
+        "id": "12501",
+        "episode": 150,
+        "title": "E150: A Battle of Bugs: The Deceivers and the Deceived"
+      },
+      {
+        "id": "12502",
+        "episode": 151,
+        "title": "E151: Blaze Away Byakugan: This Is My Ninja Way"
+      },
+      {
+        "id": "12503",
+        "episode": 152,
+        "title": "E152: Funeral March for the Living"
+      },
+      {
+        "id": "12504",
+        "episode": 153,
+        "title": "E153: A Lesson Learned: The Iron Fist of Love"
+      },
+      {
+        "id": "12505",
+        "episode": 154,
+        "title": "E154: The Enemy of the Byakugan"
+      },
+      {
+        "id": "12506",
+        "episode": 155,
+        "title": "E155: The Dark Creeping Clouds"
+      },
+      {
+        "id": "12507",
+        "episode": 156,
+        "title": "E156: Raiga's Counterattack"
+      },
+      {
+        "id": "12508",
+        "episode": 157,
+        "title": "E157: Run! The Curry of Life"
+      },
+      {
+        "id": "12509",
+        "episode": 158,
+        "title": "E158: Follow My Lead! The Great Survival Challenge"
+      },
+      {
+        "id": "12510",
+        "episode": 159,
+        "title": "E159: Bounty Hunter from the Wilderness"
+      },
+      {
+        "id": "12511",
+        "episode": 160,
+        "title": "E160: Hunt or Be Hunted?! Showdown at the O.K. Temple!"
+      },
+      {
+        "id": "12512",
+        "episode": 161,
+        "title": "E161: The Appearance of Strange Visitors"
+      },
+      {
+        "id": "12513",
+        "episode": 162,
+        "title": "E162: The Cursed Warrior"
+      },
+      {
+        "id": "12514",
+        "episode": 163,
+        "title": "E163: The Tactician's Intent"
+      },
+      {
+        "id": "12515",
+        "episode": 164,
+        "title": "E164: Too Late for Help"
+      },
+      {
+        "id": "12516",
+        "episode": 165,
+        "title": "E165: The Death of Naruto"
+      },
+      {
+        "id": "12517",
+        "episode": 166,
+        "title": "E166: When Time Stands Still"
+      },
+      {
+        "id": "12518",
+        "episode": 167,
+        "title": "E167: When Egrets Flap Their Wings"
+      },
+      {
+        "id": "12519",
+        "episode": 168,
+        "title": "E168: Mix It, Stretch It, Boil It Up! Burn, Copper Pot, Burn!"
+      },
+      {
+        "id": "12520",
+        "episode": 169,
+        "title": "E169: Remembrance: The Lost Page"
+      },
+      {
+        "id": "12521",
+        "episode": 170,
+        "title": "E170: The Closed Door"
+      },
+      {
+        "id": "12522",
+        "episode": 171,
+        "title": "E171: Infiltration: The Set-Up!"
+      },
+      {
+        "id": "12523",
+        "episode": 172,
+        "title": "E172: Despair: A Fractured Heart"
+      },
+      {
+        "id": "12524",
+        "episode": 173,
+        "title": "E173: The Battle at Sea: The Power Unleashed!"
+      },
+      {
+        "id": "12525",
+        "episode": 174,
+        "title": "E174: Impossible! Celebrity Ninja Art - Money Style Jutsu!"
+      },
+      {
+        "id": "12526",
+        "episode": 175,
+        "title": "E175: The Treasure Hunt is On!"
+      },
+      {
+        "id": "12527",
+        "episode": 176,
+        "title": "E176: Run, Dodge, Zigzag! Chase or Be Chased!"
+      },
+      {
+        "id": "12528",
+        "episode": 177,
+        "title": "E177: Please, Mr. Postman!"
+      },
+      {
+        "id": "12529",
+        "episode": 178,
+        "title": "E178: Encounter! The Boy with a Star's Name"
+      },
+      {
+        "id": "12530",
+        "episode": 179,
+        "title": "E179: The Remembered Lullaby"
+      },
+      {
+        "id": "12531",
+        "episode": 180,
+        "title": "E180: Hidden Jutsu: The Price of The Ninja Art: Kujaku"
+      },
+      {
+        "id": "12532",
+        "episode": 181,
+        "title": "E181: Hoshikage, The Buried Truth"
+      },
+      {
+        "id": "12533",
+        "episode": 182,
+        "title": "E182: Reunion, The Remaining time"
+      },
+      {
+        "id": "12534",
+        "episode": 183,
+        "title": "E183: The Star's Radiance"
+      },
+      {
+        "id": "12535",
+        "episode": 184,
+        "title": "E184: Kiba's Long Day!"
+      },
+      {
+        "id": "12536",
+        "episode": 185,
+        "title": "E185: A Legend from the Hidden Leaf: The Onbaa!"
+      },
+      {
+        "id": "12537",
+        "episode": 186,
+        "title": "E186: Laughing Shino"
+      },
+      {
+        "id": "12538",
+        "episode": 187,
+        "title": "E187: Open for Business! The Leaf Moving Service"
+      },
+      {
+        "id": "12539",
+        "episode": 188,
+        "title": "E188: Mystery of the Targeted Merchants"
+      },
+      {
+        "id": "12540",
+        "episode": 189,
+        "title": "E189: A Limitless Supply of Ninja Tools"
+      },
+      {
+        "id": "12541",
+        "episode": 190,
+        "title": "E190: The Byakugan Sees the Blind Spot"
+      },
+      {
+        "id": "12542",
+        "episode": 191,
+        "title": "E191: Forecast: Death! Cloudy with Chance of Sun"
+      },
+      {
+        "id": "12543",
+        "episode": 192,
+        "title": "E192: Ino Screams! Chubby Paradise!"
+      },
+      {
+        "id": "12544",
+        "episode": 193,
+        "title": "E193: Viva Dojo Challenge! Youth Is All About Passion!"
+      },
+      {
+        "id": "12545",
+        "episode": 194,
+        "title": "E194: The Mysterious Curse of the Haunted Castle"
+      },
+      {
+        "id": "12546",
+        "episode": 195,
+        "title": "E195: The Third Super-Beast!"
+      },
+      {
+        "id": "12547",
+        "episode": 196,
+        "title": "E196: Hot-Blooded Confrontation: Student vs. Sensei"
+      },
+      {
+        "id": "12548",
+        "episode": 197,
+        "title": "E197: Crisis! The Hidden Leaf 11 Gather!"
+      },
+      {
+        "id": "12549",
+        "episode": 198,
+        "title": "E198: The ANBU Gives Up? Naruto's Recollection"
+      },
+      {
+        "id": "12550",
+        "episode": 199,
+        "title": "E199: The Missed Target"
+      },
+      {
+        "id": "12551",
+        "episode": 200,
+        "title": "E200: The Powerful Helper"
+      },
+      {
+        "id": "12552",
+        "episode": 201,
+        "title": "E201: Multiple Traps! Countdown to Destruction"
+      },
+      {
+        "id": "12553",
+        "episode": 202,
+        "title": "E202: The Top 5 Ninja Battles"
+      },
+      {
+        "id": "12554",
+        "episode": 203,
+        "title": "E203: Kurenai's Decision, Squad 8 Left Behind"
+      },
+      {
+        "id": "12555",
+        "episode": 204,
+        "title": "E204: Yakumo's Sealed Ability"
+      },
+      {
+        "id": "12556",
+        "episode": 205,
+        "title": "E205: Kurenai's Top-Secret Mission: The Promise With the Third Hokage"
+      },
+      {
+        "id": "12557",
+        "episode": 206,
+        "title": "E206: Genjutsu or Reality?"
+      },
+      {
+        "id": "12558",
+        "episode": 207,
+        "title": "E207: The Supposed Sealed Ability"
+      },
+      {
+        "id": "12559",
+        "episode": 208,
+        "title": "E208: The Weight of the Prized Artifact!"
+      },
+      {
+        "id": "12560",
+        "episode": 209,
+        "title": "E209: The Enemy: Ninja Dropouts"
+      },
+      {
+        "id": "12561",
+        "episode": 210,
+        "title": "E210: The Bewildering Forest"
+      },
+      {
+        "id": "12562",
+        "episode": 211,
+        "title": "E211: Memory of Flames"
+      },
+      {
+        "id": "12563",
+        "episode": 212,
+        "title": "E212: To Each His Own Path"
+      },
+      {
+        "id": "12564",
+        "episode": 213,
+        "title": "E213: Vanished Memories"
+      },
+      {
+        "id": "12565",
+        "episode": 214,
+        "title": "E214: Bringing Back Reality"
+      },
+      {
+        "id": "12566",
+        "episode": 215,
+        "title": "E215: A Past to Be Erased"
+      },
+      {
+        "id": "12567",
+        "episode": 216,
+        "title": "E216: The Targeted Shukaku"
+      },
+      {
+        "id": "12568",
+        "episode": 217,
+        "title": "E217: Sand Alliance With The Leaf Shinobi"
+      },
+      {
+        "id": "12569",
+        "episode": 218,
+        "title": "E218: The Counterattack!"
+      },
+      {
+        "id": "12570",
+        "episode": 219,
+        "title": "E219: The Ultimate Weapon Reborn"
+      },
+      {
+        "id": "12571",
+        "episode": 220,
+        "title": "E220: Departure"
+      }
+    ]
+  },
+  "mediaSources": {
+    "sources": [
+      {
+        "url": "https://p.10020.workers.dev/afc7d47f/ma9yIsUHLd1oEUKmveBRD7DAzNLTmIHNhskxNVbpsApD1Io1XY8Ddr__N8s43_uFLg-sVV-81zEhDqj77H9fw0UP17g47zd3mdjcHHNHqNJtto-EbIDFL42AGGVgL1LbuHhJu6CMrN18wQyF6fBaYEpZCx2MGTlxh51fGm29y3A7Bn5Bt56iPKh5EJxbSN9YJbU6nfe_B-ttjLaJ4lnwtcKRn10NN8QDkvcgrNgqtccXvNNYnC0GZ2P37uzjGmZ3XeOz4oL8SlaxhBV68J5oSiU-M6a1a1FKVxJHfkWEOHRj6urzJFIPS2Lspb4jjv2q2J-GuyCMhIs66VAU7s4gOBjqEgyBLIDEY1sRz9txwsVVvrKoQ9F1mISTFmRaU2ADL0E7cJQaYLUd0IDhJibR_9-C1yn2ACBox4dEjF9HcctnihzL4K5mTxYmyuXP7Jf3rvTrP3MyjM39WvZTMep2p7mlAcI0iyADTuPfOqEXx7paWYaP6P5uxFObtAV5ADVop53K5uczFZ9y28tmeDWCcBhj4h2wgFCNX32qEetr0ZA2sYYRCrtDekQA24F9qthEppIte-SP8UPgywGQFr11oA.m3u8",
+        "quality": "Auto"
+      }
+    ],
+    "subtitles": [
+      {
+        "url": "https://mgstatics.xyz/subtitle/8e299aefc379ad0ac8b0d1263ad456fb/eng-2.vtt",
+        "lang": "English",
+        "language": "English"
+      },
+      {
+        "url": "https://mgstatics.xyz/thumbnails/bc6ee3d911e4016364b1906a774e0edc/thumbnails.vtt",
+        "lang": "Default (maybe)",
+        "language": "Default (maybe)"
+      }
+    ]
+  }
+}

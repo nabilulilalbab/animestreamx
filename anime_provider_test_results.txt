@@ -1,0 +1,71 @@
+Hasil Testing 3 Anime ke Semua Provider
+============================================================
+
+Anime: Naruto (ID: 20, Episode: 1)
+------------------------------------------------------------
+streamx              | Status: ERROR | HTTPSConnectionPool(host='embed.wplay.me', port=443): Read timed out. (read timeout=15)
+mapi                 | Status: 200 | VIDEO
+cinemaos             | Status: 200 | VIDEO
+rive                 | Status: 200 | VIDEO
+videasy              | Status: 200 | VIDEO
+vidpro               | Status: 200 | VIDEO
+vidking              | Status: 200 | VIDEO
+embedcc              | Status: 200 | VIDEO
+zxcstream            | Status: 200 | VIDEO
+french               | Status: 200 | VIDEO
+spanish              | Status: 200 | VIDEO
+italian              | Status: 200 | VIDEO
+vidcc-sub            | Status: 200 | VIDEO
+vidcc-dub            | Status: 200 | VIDEO
+pahe-sub             | Status: 200 | VIDEO
+pahe-dub             | Status: 200 | VIDEO
+videasy-sub          | Status: 200 | VIDEO
+videasy-dub          | Status: 200 | VIDEO
+vidnest-sub          | Status: 200 | VIDEO
+vidnest-dub          | Status: 200 | VIDEO
+
+Anime: Demon Slayer (ID: 101922, Episode: 1)
+------------------------------------------------------------
+streamx              | Status: 200 | VIDEO
+mapi                 | Status: 200 | VIDEO
+cinemaos             | Status: 200 | VIDEO
+rive                 | Status: 200 | VIDEO
+videasy              | Status: 200 | VIDEO
+vidpro               | Status: 200 | VIDEO
+vidking              | Status: 200 | VIDEO
+embedcc              | Status: 200 | VIDEO
+zxcstream            | Status: 200 | VIDEO
+french               | Status: 200 | VIDEO
+spanish              | Status: 200 | VIDEO
+italian              | Status: 404 | VIDEO
+vidcc-sub            | Status: 200 | VIDEO
+vidcc-dub            | Status: 200 | VIDEO
+pahe-sub             | Status: 200 | VIDEO
+pahe-dub             | Status: 200 | VIDEO
+videasy-sub          | Status: 200 | VIDEO
+videasy-dub          | Status: 200 | VIDEO
+vidnest-sub          | Status: 200 | VIDEO
+vidnest-dub          | Status: 200 | VIDEO
+
+Anime: Jujutsu Kaisen (ID: 113415, Episode: 1)
+------------------------------------------------------------
+streamx              | Status: ERROR | HTTPSConnectionPool(host='embed.wplay.me', port=443): Read timed out. (read timeout=15)
+mapi                 | Status: 200 | VIDEO
+cinemaos             | Status: 200 | VIDEO
+rive                 | Status: 200 | VIDEO
+videasy              | Status: 200 | VIDEO
+vidpro               | Status: 200 | VIDEO
+vidking              | Status: 200 | VIDEO
+embedcc              | Status: 200 | VIDEO
+zxcstream            | Status: 200 | VIDEO
+french               | Status: 200 | VIDEO
+spanish              | Status: 200 | VIDEO
+italian              | Status: 200 | VIDEO
+vidcc-sub            | Status: 200 | VIDEO
+vidcc-dub            | Status: 200 | VIDEO
+pahe-sub             | Status: 200 | VIDEO
+pahe-dub             | Status: 200 | VIDEO
+videasy-sub          | Status: 200 | VIDEO
+videasy-dub          | Status: 200 | VIDEO
+vidnest-sub          | Status: 200 | VIDEO
+vidnest-dub          | Status: 200 | VIDEO

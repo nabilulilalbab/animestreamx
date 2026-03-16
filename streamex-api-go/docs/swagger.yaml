@@ -1,0 +1,160 @@
+definitions:
+  main.ProviderStatus:
+    properties:
+      error:
+        description: Pesan error jika ada
+        type: string
+      name:
+        description: Nama provider
+        type: string
+      response_time:
+        description: Waktu respons dalam ms
+        type: integer
+      status:
+        description: 'Status: up, down, unstable'
+        type: string
+      type:
+        description: 'Jenis konten: tv, movie, anime'
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /api/detail/{category}/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Menampilkan detail film, serial TV, atau anime beserta episode
+      parameters:
+      - description: 'Kategori: tv, movie, anime'
+        in: path
+        name: category
+        required: true
+        type: string
+      - description: ID konten
+        in: path
+        name: id
+        required: true
+        type: string
+      - default: "1"
+        description: Musim (hanya untuk TV)
+        in: query
+        name: season
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Detail konten
+      tags:
+      - content
+  /api/list/{category}:
+    get:
+      consumes:
+      - application/json
+      description: Menampilkan daftar film, serial TV, atau anime populer
+      parameters:
+      - description: 'Kategori: tv, movie, anime'
+        in: path
+        name: category
+        required: true
+        type: string
+      - default: "1"
+        description: Halaman
+        in: query
+        name: page
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              additionalProperties: true
+              type: object
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Daftar konten populer
+      tags:
+      - content
+  /api/providers/health:
+    get:
+      consumes:
+      - application/json
+      description: Memeriksa ketersediaan dan waktu respons semua provider streaming
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/main.ProviderStatus'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Dapatkan status kesehatan semua provider
+      tags:
+      - providers
+  /api/search:
+    get:
+      consumes:
+      - application/json
+      description: Mencari film, serial TV, atau anime berdasarkan query
+      parameters:
+      - description: Kata kunci pencarian
+        in: query
+        name: query
+        required: true
+        type: string
+      - default: "1"
+        description: Halaman
+        in: query
+        name: page
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              additionalProperties: true
+              type: object
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Cari konten
+      tags:
+      - search
+swagger: "2.0"
