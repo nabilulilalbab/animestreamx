@@ -68,7 +68,8 @@ paths:
     get:
       consumes:
       - application/json
-      description: Menampilkan daftar film, serial TV, atau anime populer
+      description: Menampilkan daftar film, serial TV, atau anime populer. Untuk anime,
+        gunakan parameter 'status'.
       parameters:
       - description: 'Kategori: tv, movie, anime'
         in: path
@@ -79,6 +80,12 @@ paths:
         description: Halaman
         in: query
         name: page
+        type: string
+      - default: most-popular
+        description: 'Status/Filter khusus Anime: trending, top-airing, most-popular,
+          most-favorite, top-upcoming, completed, top-rated'
+        in: query
+        name: status
         type: string
       produces:
       - application/json

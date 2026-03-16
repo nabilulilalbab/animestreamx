@@ -82,7 +82,7 @@ const docTemplate = `{
         },
         "/api/list/{category}": {
             "get": {
-                "description": "Menampilkan daftar film, serial TV, atau anime populer",
+                "description": "Menampilkan daftar film, serial TV, atau anime populer. Untuk anime, gunakan parameter 'status'.",
                 "consumes": [
                     "application/json"
                 ],
@@ -106,6 +106,13 @@ const docTemplate = `{
                         "default": "1",
                         "description": "Halaman",
                         "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "default": "most-popular",
+                        "description": "Status/Filter khusus Anime: trending, top-airing, most-popular, most-favorite, top-upcoming, completed, top-rated",
+                        "name": "status",
                         "in": "query"
                     }
                 ],

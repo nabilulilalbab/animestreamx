@@ -290,22 +290,38 @@ func SearchHandler(c *fiber.Ctx) error {
 
 // ListHandler menampilkan daftar konten populer berdasarkan kategori
 // @Summary      Daftar konten populer
-// @Description  Menampilkan daftar film, serial TV, atau anime populer
+// @Description  Menampilkan daftar film, serial TV, atau anime populer. Untuk anime, gunakan parameter 'status'.
 // @Tags         content
 // @Accept       json
 // @Produce      json
 // @Param        category  path      string  true  "Kategori: tv, movie, anime"
 // @Param        page      query     string  false "Halaman" default(1)
+// @Param        status    query     string  false "Status/Filter khusus Anime: trending, top-airing, most-popular, most-favorite, top-upcoming, completed, top-rated" default(most-popular)
 // @Success      200       {array}   map[string]interface{}
 // @Failure      500       {object}  map[string]string
 // @Router       /api/list/{category} [get]
 func ListHandler(c *fiber.Ctx) error {
 	category := strings.ToLower(c.Params("category"))
 	page := c.Query("page", "1")
+	status := strings.ToLower(c.Query("status", "most-popular"))
 
 	var url string
 	if category == "anime" {
-		url = StreamExBase + "/hianime/most-popular?page=" + page
+		// Validasi filter anime agar aman
+		validStatuses := map[string]bool{
+			"trending":      true,
+			"top-airing":    true,
+			"most-popular":  true,
+			"most-favorite": true,
+			"top-upcoming":  true,
+			"completed":     true,
+			"top-rated":     true,
+		}
+
+		if !validStatuses[status] {
+			status = "most-popular"
+		}
+		url = fmt.Sprintf("%s/hianime/%s?page=%s", StreamExBase, status, page)
 	} else {
 		// TMDB API requires lowercase 'tv' or 'movie'
 		url = fmt.Sprintf("%s/tmdb/%s/popular?page=%s", StreamExBase, category, page)
